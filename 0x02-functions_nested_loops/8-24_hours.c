@@ -35,11 +35,11 @@ void jack_bauer(void)
 					_putchar('0' + m1);
 					_putchar('\n');
 				}
-				m2++;
+				m1++;
 			}
-			h1++;
+			m2++;
 		}
-		h2++;
+		h1++;
 	}
+	h2++;
 }
-
