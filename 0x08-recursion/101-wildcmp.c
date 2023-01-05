@@ -1,50 +1,30 @@
 #include "main.h"
-#include <stdio.h>
 
 /**
- * print_buffer - prints buffer
- * @b: buffer
- * @size: size
- * Return: void
+ * wildcmp - Compare strings
+ * @s1: pointer to string params
+ * @s2: pointer to string params
+ * Return: 0
  */
 
-void print_buffer(char *b, int size)
+int wildcmp(char *s1, char *s2)
 {
-	int o, j, i;
-
-	o = 0;
-
-	if (size <= 0)
+	if (*s1 == '\0')
 	{
-		printf("\n");
-		return;
-	}
-	while (o < size)
-	{
-		j = size - o < 10 ? size - o : 10;
-		printf("%08x: ", o);
-		for (i = 0; i < 10; i++)
+		if (*s2 != '\0' && *s2 == '*')
 		{
-			if (i < j)
-				printf("%02x", *(b + o + i));
-			else
-				printf("  ");
-			if (i % 2)
-			{
-				printf(" ");
-			}
+			return (wildcmp(s1, s2 + 1));
 		}
-		for (i = 0; i < j; i++)
-		{
-			int c = *(b + o + i);
+		return (*s2 == '\0');
+	}
 
-			if (c < 32 || c > 132)
-			{
-				c = '.';
-			}
-			printf("%c", c);
-		}
-		printf("\n");
-		o += 10;
+	if (*s2 == '*')
+	{
+		return (wildcmp(s1 + 1, s2) || wildcmp(s1, s2 + 1));
 	}
+	else if (*s1 == *s2)
+	{
+		return (wildcmp(s1 + 1, s2 + 1));
+	}
+	return (0);
 }
